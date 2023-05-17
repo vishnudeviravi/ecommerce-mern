@@ -1,0 +1,36 @@
+.productsMainContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 87%;
+  margin: 20px auto;
+}
+
+.productsFilterContainer {
+  width: 20%;
+  min-height: 80vh;
+  border: 1px solid rgb(212, 212, 212);
+  border-radius: 10px;
+  padding: 15px 15px;
+}
+
+.productsContainer {
+  width: 79%;
+  min-height: 80vh;
+  border: 1px solid rgb(212, 212, 212);
+  border-radius: 10px;
+  padding: 15px 15px;
+}
+
+.sortContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.itemContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filterHeading {
+  margin-top: 20px;
+}

@@ -1,0 +1,15 @@
+.vendorLogin {
+  width: 430px;
+  height: 450px;
+  border: 1px solid #a0d8b3;
+  margin: 50px auto;
+  padding: 30px 40px;
+  box-shadow: 5px 5px 30px 5px #b7dfc4;
+  border-radius: 5px;
+}
+
+.heading {
+  text-align: center;
+  padding: 5px 20px;
+  font-size: 25px;
+}

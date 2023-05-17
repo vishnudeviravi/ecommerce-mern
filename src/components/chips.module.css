@@ -1,0 +1,14 @@
+.chip {
+  border: 1px solid rgb(179, 179, 179);
+  width: fit-content;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+  transition: all 1s;
+}
+
+.chip:hover {
+  background-color: rgb(239, 239, 239);
+  cursor: pointer;
+}

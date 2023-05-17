@@ -1,0 +1,29 @@
+.home {
+}
+
+.homeBanner {
+  width: 95%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 30px;
+  display: block;
+  margin: 0px auto;
+  margin-top: 20px;
+}
+
+.homeCategory {
+  width: 87%;
+  margin: 10px auto;
+}
+
+.categoryChip {
+  display: flex;
+  margin: 10px;
+}
+
+.homeProduct {
+  width: 87%;
+  margin: 10px auto;
+  display: flex;
+  flex-wrap: wrap;
+}

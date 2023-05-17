@@ -1,0 +1,16 @@
+.productDetailsContainer {
+  width: 87%;
+  margin: 20px auto;
+}
+
+.productItems {
+  display: flex;
+  width: 100%;
+}
+.productImgContainer {
+  width: 40%;
+  height: 100px;
+}
+.productMainContainer {
+  width: 60%;
+}
