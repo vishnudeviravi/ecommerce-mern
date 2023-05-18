@@ -13,4 +13,37 @@
 }
 .productMainContainer {
   width: 60%;
+  padding: 30px 50px;
+}
+.priceDetails {
+  display: flex;
+  margin-top: 25px;
+  font-size: 23px;
+  justify-content: space-between;
+  width: 300px;
+}
+
+.priceLabel {
+  color: rgb(148, 148, 148);
+}
+
+.actualPrice {
+  text-decoration: line-through;
+  color: rgb(154, 154, 154);
+}
+
+.description {
+  margin-top: 30px;
+  font-size: 20px;
+  line-height: 35px;
+}
+
+.productChip {
+  display: flex;
+}
+.btnDiv {
+  width: 220px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
 }
