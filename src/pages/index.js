@@ -2,6 +2,7 @@ import styles from "@/styles/Home.module.css";
 import UserNavbar from "@/components/usernavbar";
 import Chips from "@/components/chips";
 import Product from "@/components/product";
+import { useState, useEffect } from "react";
 
 const chips = [
   "Mobile Phones",
@@ -12,6 +13,22 @@ const chips = [
 ];
 
 export default function Home() {
+  const [product, setProduct] = useState([]);
+  const fetchApi = async () => {
+    const products = await fetch("/api/product");
+    const convertedProducts = await products.json();
+    setProduct(convertedProducts);
+  };
+  useEffect(() => {
+    fetchApi();
+  }, []);
+
+  const onChipClick = async name => {
+    const products = await fetch(`/api/product?category=${name}`);
+    const convertedProducts = await products.json();
+    setProduct(convertedProducts);
+  };
+
   return (
     <div className={styles.home}>
       <UserNavbar currentPage="home" />
@@ -20,18 +37,14 @@ export default function Home() {
         <h3>Shop By Category</h3>
         <div className={styles.categoryChip}>
           {chips.map(item => (
-            <Chips name={item} />
+            <Chips onClick={onChipClick} name={item} />
           ))}
         </div>
       </div>
       <div className={styles.homeProduct}>
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
+        {product.map(item => (
+          <Product {...item} />
+        ))}
       </div>
     </div>
   );
