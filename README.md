@@ -33,6 +33,16 @@ This is an ecommerce application where users can view products, search products 
 - [products](http://localhost:3000/products) - This is the products listing page of users. When products page loads it calls the [products-api](http://localhost:3000/api/product)
 - [products-detail-page](http://localhost:3000/products/1) - This is the product detail page for users. This page shows the details of a single product with id. This page will call [single-product-api](http://localhost:3000/api/product/1)
 
+## api
+
+- [http://localhost:3000/api/product](http://localhost:3000/api/product)
+- [http://localhost:3000/api/product/1](http://localhost:3000/api/product/1)
+- [http://localhost:3000/api/product?category=Mobile Phones](http://localhost:3000/api/product?category=Mobile%20Phones)
+- [http://localhost:3000/api/product?category=Mobile Phones&category=Laptop](http://localhost:3000/api/product?category=Mobile%20Phones&category=Laptop)
+- [http://localhost:3000/api/product?brand=Apple](http://localhost:3000/api/product?brand=Apple)
+- [http://localhost:3000/api/product?brand=Apple&brand=IKEAI](http://localhost:3000/api/product?brand=Apple&brand=IKEAI)
+- [http://localhost:3000/api/product?brand=Apple&category=Laptop](http://localhost:3000/api/product?brand=Apple&category=Laptop)
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
