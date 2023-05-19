@@ -1,13 +1,18 @@
 import styles from "./imageviewer.module.css";
+import { useState, useEffect } from "react";
 
-const ImageViewer = () => {
+const ImageViewer = props => {
+  const [img, setImg] = useState(props.thumbnailImage);
+  useEffect(() => {
+    setImg(props.thumbnailImage);
+  }, [props.thumbnailImage]);
   return (
     <div className={styles.imageViewer}>
-      <img className={styles.displayImg} src="/mobile.jpg" />
+      <img className={styles.displayImg} src={img} />
       <div className={styles.selectImage}>
-        <img src="/mobile.jpg" />
-        <img src="/mobile.jpg" />
-        <img src="/mobile.jpg" />
+        {(props.imgArray || []).map(item => (
+          <img onClick={() => setImg(item)} src={item} />
+        ))}
       </div>
     </div>
   );

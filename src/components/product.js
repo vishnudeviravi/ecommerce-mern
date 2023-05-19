@@ -1,14 +1,19 @@
 import styles from "./product.module.css";
 import Image from "next/image";
 import { UilShoppingBag } from "@iconscout/react-unicons";
+import { useRouter } from "next/router";
 
 const Product = props => {
+  const router = useRouter();
   return (
-    <div className={styles.product}>
+    <div
+      onClick={() => router.push(`/products/${props.id}`)}
+      className={styles.product}
+    >
       <Image
         width={290}
         height={250}
-        src="/mobile.jpg"
+        src={props.thumbnailImage}
         className={styles.productImage}
       />
       <div className={styles.productDetails}>
@@ -17,7 +22,7 @@ const Product = props => {
           <p className={styles.priceTag}>Price</p>
           <p className={styles.price}>
             {props.price}
-            <span>1,40000</span>
+            <span>{props.actualPrice}</span>
           </p>
         </div>
         <UilShoppingBag className={styles.cartBtn} />

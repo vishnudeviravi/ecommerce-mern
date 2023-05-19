@@ -5,6 +5,7 @@ import Product from "@/components/product";
 import { useState, useEffect } from "react";
 
 const chips = [
+  "All",
   "Mobile Phones",
   "Laptop",
   "Furniture",
@@ -24,9 +25,15 @@ export default function Home() {
   }, []);
 
   const onChipClick = async name => {
-    const products = await fetch(`/api/product?category=${name}`);
-    const convertedProducts = await products.json();
-    setProduct(convertedProducts);
+    if (name == "All") {
+      const products = await fetch(`/api/product`);
+      const convertedProducts = await products.json();
+      setProduct(convertedProducts);
+    } else {
+      const products = await fetch(`/api/product?category=${name}`);
+      const convertedProducts = await products.json();
+      setProduct(convertedProducts);
+    }
   };
 
   return (

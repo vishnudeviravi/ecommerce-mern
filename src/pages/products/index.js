@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "@/styles/products.module.css";
 import UserNavbar from "@/components/usernavbar";
 import MenuItem from "@mui/material/MenuItem";
@@ -8,7 +8,18 @@ import Product from "@/components/product";
 import Checkbox from "@/components/checkbox";
 
 const Products = () => {
+  const [products, setProduct] = useState([]);
   const [age, setAge] = useState("");
+
+  const getProductsFromApi = async () => {
+    const products = await fetch("http://localhost:3001/api/product");
+    const jsonProducts = await products.json();
+    setProduct(jsonProducts);
+  };
+
+  useEffect(() => {
+    getProductsFromApi();
+  }, []);
 
   const handleChange = event => {
     setAge(event.target.value);
@@ -47,10 +58,9 @@ const Products = () => {
             </FormControl>
           </div>
           <div className={styles.itemContainer}>
-            <Product />
-            <Product />
-            <Product />
-            <Product />
+            {products.map(item => (
+              <Product {...item} />
+            ))}
           </div>
         </div>
       </div>
