@@ -13,7 +13,7 @@ const ProductDetails = () => {
 
   const getProductFromApi = async () => {
     if (id) {
-      const product = await fetch(`http://localhost:3001/api/product/${id}`);
+      const product = await fetch(`http://localhost:3000/api/product/${id}`);
       const jsonProduct = await product.json();
       setProduct(jsonProduct);
     }

@@ -12,7 +12,7 @@ const Products = () => {
   const [age, setAge] = useState("");
 
   const getProductsFromApi = async () => {
-    const products = await fetch("http://localhost:3001/api/product");
+    const products = await fetch("http://localhost:3000/api/product");
     const jsonProducts = await products.json();
     setProduct(jsonProducts);
   };
