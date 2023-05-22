@@ -6,10 +6,13 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Product from "@/components/product";
 import Checkbox from "@/components/checkbox";
+import { buildQuery } from "@/utils";
 
 const Products = () => {
   const [products, setProduct] = useState([]);
   const [age, setAge] = useState("");
+  const [brands, setBrands] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const getProductsFromApi = async () => {
     const products = await fetch("http://localhost:3000/api/product");
@@ -24,6 +27,41 @@ const Products = () => {
   const handleChange = event => {
     setAge(event.target.value);
   };
+  const handleBrandCheckbox = (e, label) => {
+    if (e.target.checked) {
+      setBrands([...brands, label]); // check samsung                ['apple',"samsung"]
+      callFilterApi([...brands, label], categories);
+    } else {
+      const filteredBrands = brands.filter(item => item != label); // uncheck   ["apple",'"samsung"]
+      // ["apple"]
+      setBrands(filteredBrands);
+      callFilterApi(filteredBrands, categories);
+    }
+    console.log(e.target.checked, label);
+  };
+
+  const handleCategoryCheckbox = (e, label) => {
+    if (e.target.checked) {
+      setCategories([...categories, label]); // check samsung                ['apple',"samsung"]
+      callFilterApi(brands, [...categories, label]);
+    } else {
+      const filteredCategories = categories.filter(item => item != label); // uncheck   ["apple",'"samsung"]
+      setCategories(filteredCategories);
+      callFilterApi(brands, filteredCategories);
+    }
+    console.log(e.target.checked, label);
+  };
+
+  const callFilterApi = async (brands, categories) => {
+    let queryBrands = buildQuery("brand", brands);
+    let queryCategories = buildQuery("category", categories);
+    let query = queryBrands + queryCategories;
+    const products = await fetch(`http://localhost:3000/api/product?${query}`);
+    const jsonProducts = await products.json();
+    setProduct(jsonProducts);
+  };
+
+  console.log(brands);
   return (
     <div className={styles.products}>
       <UserNavbar />
@@ -31,15 +69,27 @@ const Products = () => {
         <div className={styles.productsFilterContainer}>
           <h1>Filters</h1>
           <h4 className={styles.filterHeading}>Brands</h4>
-          <Checkbox label="Samsung" />
-          <Checkbox label="Apple" />
-          <Checkbox label="Mi" />
-          <Checkbox label="RealMe" />
+          <Checkbox label="Samsung" onCheckboxClicked={handleBrandCheckbox} />
+          <Checkbox label="Apple" onCheckboxClicked={handleBrandCheckbox} />
+          <Checkbox
+            label="Allen Solly"
+            onCheckboxClicked={handleBrandCheckbox}
+          />
+          <Checkbox label="IKEAI" onCheckboxClicked={handleBrandCheckbox} />
           <h4 className={styles.filterHeading}>Category</h4>
-          <Checkbox label="Smart Phone" />
-          <Checkbox label="Feature Phone" />
-          <Checkbox label="Watches" />
-          <Checkbox label="Earphones" />
+          <Checkbox
+            label="Mobile Phones"
+            onCheckboxClicked={handleCategoryCheckbox}
+          />
+          <Checkbox
+            label="Furniture"
+            onCheckboxClicked={handleCategoryCheckbox}
+          />
+          <Checkbox label="Laptop" onCheckboxClicked={handleCategoryCheckbox} />
+          <Checkbox
+            label="Men Clothes"
+            onCheckboxClicked={handleCategoryCheckbox}
+          />
         </div>
         <div className={styles.productsContainer}>
           <h1>Products</h1>
