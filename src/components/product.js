@@ -13,7 +13,7 @@ const Product = props => {
       <Image
         width={290}
         height={250}
-        src={props.thumbnailImage}
+        src={props.mainImage}
         className={styles.productImage}
       />
       <div className={styles.productDetails}>

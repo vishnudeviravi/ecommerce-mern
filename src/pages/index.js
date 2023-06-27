@@ -3,6 +3,7 @@ import UserNavbar from "@/components/usernavbar";
 import Chips from "@/components/chips";
 import Product from "@/components/product";
 import { useState, useEffect } from "react";
+import instance from "../utils/axios";
 
 const chips = [
   "All",
@@ -15,25 +16,30 @@ const chips = [
 
 export default function Home() {
   const [product, setProduct] = useState([]);
+  const [category,setCategory] = useState([]);
+
   const fetchApi = async () => {
-    const products = await fetch("/api/product");
-    const convertedProducts = await products.json();
-    setProduct(convertedProducts);
+    const productData = await instance.get("/product");
+    const products = productData.data.data;
+    setProduct(products);
   };
+
+  const fetchCategoryApi = async()=>{
+    const categoryData = await instance.get("/category");
+    setCategory(categoryData.data)
+  }
+
+
+
   useEffect(() => {
     fetchApi();
+    fetchCategoryApi();
   }, []);
 
-  const onChipClick = async name => {
-    if (name == "All") {
-      const products = await fetch(`/api/product`);
-      const convertedProducts = await products.json();
-      setProduct(convertedProducts);
-    } else {
-      const products = await fetch(`/api/product?category=${name}`);
-      const convertedProducts = await products.json();
-      setProduct(convertedProducts);
-    }
+  const onChipClick = async id => {
+    const products = await instance.get(`/product?category=${id}`);
+    setProduct(products.data.data);
+    
   };
 
   return (
@@ -43,14 +49,14 @@ export default function Home() {
       <div className={styles.homeCategory}>
         <h3>Shop By Category</h3>
         <div className={styles.categoryChip}>
-          {chips.map(item => (
-            <Chips onClick={onChipClick} name={item} />
+          {category.map((item, i) => (
+            <Chips key={i} id={item._id} onClick={onChipClick} name={item.name} />
           ))}
         </div>
       </div>
       <div className={styles.homeProduct}>
-        {product.map(item => (
-          <Product {...item} />
+        {product.map((item, i) => (
+          <Product key={i} {...item} />
         ))}
       </div>
     </div>

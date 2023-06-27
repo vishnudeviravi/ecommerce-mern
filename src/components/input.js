@@ -5,9 +5,12 @@ const Input = props => {
     <div className={styles.input}>
       <label className={styles.label}>{props.label}</label>
       <input
+        ref={props.reference}
         type={props.type}
         placeholder={props.placeholder}
         className={styles.textInput}
+        onKeyDown={props.onKeyDown}
+        onChange={props.onChange}
       />
     </div>
   );

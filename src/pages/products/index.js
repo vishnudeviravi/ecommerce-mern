@@ -108,8 +108,8 @@ const Products = () => {
             </FormControl>
           </div>
           <div className={styles.itemContainer}>
-            {products.map(item => (
-              <Product {...item} />
+            {products.map((item, i) => (
+              <Product key={i} {...item} />
             ))}
           </div>
         </div>
