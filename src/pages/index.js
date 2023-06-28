@@ -4,6 +4,7 @@ import Chips from "@/components/chips";
 import Product from "@/components/product";
 import { useState, useEffect } from "react";
 import instance from "../utils/axios";
+import withAuth from "@/utils/withAuth";
 
 const chips = [
   "All",
@@ -13,10 +14,9 @@ const chips = [
   "Women Clothes",
   "Men Clothes",
 ];
-
-export default function Home() {
+function Home() {
   const [product, setProduct] = useState([]);
-  const [category,setCategory] = useState([]);
+  const [category, setCategory] = useState([]);
 
   const fetchApi = async () => {
     const productData = await instance.get("/product");
@@ -24,12 +24,10 @@ export default function Home() {
     setProduct(products);
   };
 
-  const fetchCategoryApi = async()=>{
+  const fetchCategoryApi = async () => {
     const categoryData = await instance.get("/category");
-    setCategory(categoryData.data)
-  }
-
-
+    setCategory(categoryData.data);
+  };
 
   useEffect(() => {
     fetchApi();
@@ -39,7 +37,6 @@ export default function Home() {
   const onChipClick = async id => {
     const products = await instance.get(`/product?category=${id}`);
     setProduct(products.data.data);
-    
   };
 
   return (
@@ -50,7 +47,12 @@ export default function Home() {
         <h3>Shop By Category</h3>
         <div className={styles.categoryChip}>
           {category.map((item, i) => (
-            <Chips key={i} id={item._id} onClick={onChipClick} name={item.name} />
+            <Chips
+              key={i}
+              id={item._id}
+              onClick={onChipClick}
+              name={item.name}
+            />
           ))}
         </div>
       </div>
@@ -62,7 +64,7 @@ export default function Home() {
     </div>
   );
 }
-
+export default Home;
 // user login , vendor login
 
 // user

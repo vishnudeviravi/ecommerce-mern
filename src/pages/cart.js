@@ -1,5 +1,6 @@
 import styles from "@/styles/cart.module.css";
 import UserNavbar from "@/components/usernavbar";
+import withAuth from "@/utils/withAuth";
 
 const Cart = () => {
   return (
@@ -10,4 +11,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default withAuth(Cart);

@@ -1,5 +1,6 @@
 import styles from "@/styles/account.module.css";
 import UserNavbar from "@/components/usernavbar";
+import withAuth from "@/utils/withAuth";
 
 const Account = () => {
   return (
@@ -10,4 +11,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default withAuth(Account);

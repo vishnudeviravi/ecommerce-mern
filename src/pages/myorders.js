@@ -1,5 +1,6 @@
 import styles from "@/styles/myorders.module.css";
 import UserNavbar from "@/components/usernavbar";
+import withAuth from "@/utils/withAuth";
 
 const MyOrders = () => {
   return (
@@ -10,4 +11,4 @@ const MyOrders = () => {
   );
 };
 
-export default MyOrders;
+export default withAuth(MyOrders);

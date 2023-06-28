@@ -2,8 +2,23 @@ import NavbarSearch from "./navbarsearch";
 import styles from "./usernavbar.module.css";
 import { UilShoppingCartAlt } from "@iconscout/react-unicons";
 import Link from "next/link";
+import { getToken, removeToken } from "../utils";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 const UserNavbar = props => {
+  const router = useRouter();
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    setToken(getToken());
+  }, []);
+
+  const logout = () => {
+    removeToken();
+    router.push("/user/login");
+  };
+
   return (
     <div className={styles.userNavbar}>
       <div className={styles.navLeft}>
@@ -24,7 +39,13 @@ const UserNavbar = props => {
         <p className={props.currentPage == "account" ? styles.active : null}>
           <Link href="/account"> Account</Link>
         </p>
-        <p>Login</p>
+        <p>
+          {token ? (
+            <span onClick={logout}>Logout</span>
+          ) : (
+            <Link href="/user/login">Login</Link>
+          )}
+        </p>
       </div>
     </div>
   );

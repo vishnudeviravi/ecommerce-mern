@@ -1,17 +1,19 @@
 import styles from "@/styles/userlogin.module.css";
 import Input from "@/components/input";
 import Button from "@/components/button";
-import { useRef, useEffect,useState } from "react";
-import instance from '../../utils/axios'
-import {setToken} from '../../utils'
+import { useRef, useEffect, useState } from "react";
+import instance from "../../utils/axios";
+import { setToken } from "../../utils";
+import { useRouter } from "next/router";
 
 const UserLogin = () => {
+  const router = useRouter();
+
   const usernameRef = useRef();
   const passwordRef = useRef();
   const buttonRef = useRef();
 
-  const [loginData, setLoginData] = useState({username:"",password:""})
-
+  const [loginData, setLoginData] = useState({ username: "", password: "" });
 
   useEffect(() => {
     usernameRef.current.focus(); // for focusing on the input tag
@@ -26,16 +28,19 @@ const UserLogin = () => {
     }
   };
 
-  const onClick = async() => {
-    const loginValue = await instance.post('/login',loginData)
-    setToken(loginValue.data.token)
+  const onClick = async () => {
+    try {
+      const loginValue = await instance.post("/login", loginData);
+      setToken(loginValue.data.token);
+      router.push("/");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const onChange =(e,key)=>{
-    setLoginData({...loginData,[key]:e.target.value})
-
-  }
-
+  const onChange = (e, key) => {
+    setLoginData({ ...loginData, [key]: e.target.value });
+  };
 
   return (
     <div className={styles.userLogin}>
@@ -47,7 +52,7 @@ const UserLogin = () => {
         placeholder="eg: abced1200"
         label="Username"
         onKeyDown={e => onKeyDown(e, "username")}
-        onChange={(e)=>onChange(e,'username')}
+        onChange={e => onChange(e, "username")}
       />
       <Input
         reference={passwordRef}
@@ -55,8 +60,7 @@ const UserLogin = () => {
         placeholder="*********"
         label="Password"
         onKeyDown={e => onKeyDown(e, "password")}
-        onChange={(e)=>onChange(e,'password')}
-
+        onChange={e => onChange(e, "password")}
       />
       <Button onClick={onClick} reference={buttonRef} name="Login" />
     </div>
