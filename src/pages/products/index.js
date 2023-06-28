@@ -7,22 +7,36 @@ import Select from "@mui/material/Select";
 import Product from "@/components/product";
 import Checkbox from "@/components/checkbox";
 import { buildQuery } from "@/utils";
+import { useRouter } from "next/router";
+import instance from "../../utils/axios";
 
 const Products = () => {
+  const router = useRouter();
+
   const [products, setProduct] = useState([]);
   const [age, setAge] = useState("");
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
 
   const getProductsFromApi = async () => {
-    const products = await fetch("http://localhost:3000/api/product");
-    const jsonProducts = await products.json();
-    setProduct(jsonProducts);
+    const products = await instance.get(`/product`);
+    setProduct(products.data.data);
+  };
+
+  const getProductsFromApiFromQuery = async () => {
+    const products = await instance.get(
+      `/product?title=${router.query.search}`
+    );
+    setProduct(products.data.data);
   };
 
   useEffect(() => {
-    getProductsFromApi();
-  }, []);
+    if (router.query.search) {
+      getProductsFromApiFromQuery();
+    } else {
+      getProductsFromApi();
+    }
+  }, [router.query]);
 
   const handleChange = event => {
     setAge(event.target.value);

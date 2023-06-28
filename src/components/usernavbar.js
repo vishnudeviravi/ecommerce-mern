@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 const UserNavbar = props => {
   const router = useRouter();
   const [token, setToken] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     setToken(getToken());
@@ -19,13 +20,27 @@ const UserNavbar = props => {
     router.push("/user/login");
   };
 
+  const onChange = e => {
+    setSearch(e.target.value);
+  };
+
+  const onKeyDown = e => {
+    if (e.key == "Enter") {
+      router.push(`/products?search=${search}`);
+    }
+  };
+
   return (
     <div className={styles.userNavbar}>
       <div className={styles.navLeft}>
         <UilShoppingCartAlt className={styles.navIcon} />
         <h1 className={styles.navLogo}>Shopy</h1>
       </div>
-      <NavbarSearch placeholder="Search Products" />
+      <NavbarSearch
+        placeholder="Search Products"
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+      />
       <div className={styles.navRight}>
         <p className={props.currentPage == "home" ? styles.active : null}>
           <Link href="/">Home</Link>

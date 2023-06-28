@@ -7,6 +7,8 @@ const NavbarSearch = props => {
       <input
         className={styles.navbarSearchInput}
         placeholder={props.placeholder}
+        onChange={props.onChange}
+        onKeyDown={props.onKeyDown}
       />
       <UilSearch className={styles.navbarSearchIcon} />
     </div>
