@@ -1,0 +1,20 @@
+.addproduct {
+  margin: 30px 50px;
+}
+
+.addproduct h1 {
+  margin-left: 30px;
+  font-size: 50px;
+}
+
+.form {
+  display: flex;
+  width: 100%;
+}
+
+.leftDiv {
+  width: 45%;
+}
+.rightDiv {
+  width: 45%;
+}

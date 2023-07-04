@@ -7,7 +7,7 @@ const Product = props => {
   const router = useRouter();
   return (
     <div
-      onClick={() => router.push(`/products/${props.id}`)}
+      onClick={() => router.push(`/products/${props._id}`)}
       className={styles.product}
     >
       <Image

@@ -5,6 +5,8 @@ import Chips from "@/components/chips";
 import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import instance from "@/utils/axios";
+import { getUser } from "@/utils";
 
 const ProductDetails = () => {
   const router = useRouter();
@@ -13,9 +15,8 @@ const ProductDetails = () => {
 
   const getProductFromApi = async () => {
     if (id) {
-      const product = await fetch(`http://localhost:3000/api/product/${id}`);
-      const jsonProduct = await product.json();
-      setProduct(jsonProduct);
+      const product = await instance.get(`/product/${id}`);
+      setProduct(product.data.data);
     }
   };
 
@@ -23,6 +24,9 @@ const ProductDetails = () => {
     getProductFromApi();
   }, [id]);
 
+  const addToCart = async () => {
+    await instance.patch(`/cart/${getUser()}`, { product: product });
+  };
   return (
     <div className={styles.productDetails}>
       <UserNavbar />
@@ -31,27 +35,32 @@ const ProductDetails = () => {
         <div className={styles.productItems}>
           <div className={styles.productImgContainer}>
             <ImageViewer
-              thumbnailImage={product.thumbnailImage}
-              imgArray={product.image}
+              thumbnailImage={product.mainImage}
+              imgArray={product.images}
             />
           </div>
           <div className={styles.productMainContainer}>
             <h1>{product.title}</h1>
             <div className={styles.productChip}>
-              <Chips name={product.category} />
+              <Chips name={product.category && product.category.name} />
               <Chips name={product.brand} />
             </div>
             <div className={styles.priceDetails}>
               <p className={styles.priceLabel}>Price</p>
-              <p>{product.price}</p>
-              <p className={styles.actualPrice}>{product.actualPrice}</p>
+              <p>{product.priceAfterDiscount}</p>
+              <p className={styles.actualPrice}>{product.price}</p>
             </div>
             <p className={styles.description}>{product.description}</p>
             <div className={styles.btnDiv}>
               <Button size="large" variant="contained">
                 Buy
               </Button>
-              <Button size="large" variant="outlined" color="secondary">
+              <Button
+                onClick={addToCart}
+                size="large"
+                variant="outlined"
+                color="secondary"
+              >
                 Add to Cart
               </Button>
             </div>

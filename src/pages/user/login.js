@@ -3,7 +3,7 @@ import Input from "@/components/input";
 import Button from "@/components/button";
 import { useRef, useEffect, useState } from "react";
 import instance from "../../utils/axios";
-import { setToken } from "../../utils";
+import { setToken, setUser } from "../../utils";
 import { useRouter } from "next/router";
 
 const UserLogin = () => {
@@ -32,6 +32,7 @@ const UserLogin = () => {
     try {
       const loginValue = await instance.post("/login", loginData);
       setToken(loginValue.data.token);
+      setUser(loginValue.data.userId);
       router.push("/");
     } catch (e) {
       console.log(e);

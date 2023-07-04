@@ -10,19 +10,21 @@ import Checkbox from "@/components/checkbox";
 import DataTable from "@/components/table";
 import { useState, useEffect } from "react";
 import { buildQuery } from "@/utils";
+import instance from "@/utils/axios";
+import { getUser } from "@/utils/index";
 
 const columns = [
-  { field: "id", headerName: "ID", width: 70 },
+  { field: "_id", headerName: "ID", width: 70 },
   { field: "title", headerName: "Title", width: 270 },
   { field: "description", headerName: "Description", width: 270 },
   { field: "brand", headerName: "Brand", width: 150 },
   {
-    field: "price",
+    field: "priceAfterDiscount",
     headerName: "Price",
     width: 120,
   },
   {
-    field: "actualPrice",
+    field: "price",
     headerName: "Actual Price",
     sortable: false,
     width: 120,
@@ -32,6 +34,9 @@ const columns = [
     headerName: "Category",
     sortable: false,
     width: 180,
+    valueGetter: params => {
+      return params.row.category.name;
+    },
   },
 ];
 
@@ -41,9 +46,8 @@ const VendorHome = () => {
   const [categories, setCategories] = useState([]);
 
   const getProducts = async () => {
-    const products = await fetch("http://localhost:3000/api/product");
-    const jsonProducts = await products.json();
-    setProducts(jsonProducts);
+    const products = await instance.get(`/product?seller=${getUser()}`);
+    setProducts(products.data.data);
   };
   useEffect(() => {
     getProducts();

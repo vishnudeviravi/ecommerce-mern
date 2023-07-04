@@ -2,7 +2,7 @@ import NavbarSearch from "./navbarsearch";
 import styles from "./usernavbar.module.css";
 import { UilShoppingCartAlt } from "@iconscout/react-unicons";
 import Link from "next/link";
-import { getToken, removeToken } from "../utils";
+import { getToken, removeToken, removeUser } from "../utils";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -17,6 +17,7 @@ const UserNavbar = props => {
 
   const logout = () => {
     removeToken();
+    removeUser();
     router.push("/user/login");
   };
 

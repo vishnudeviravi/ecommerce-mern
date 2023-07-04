@@ -24,3 +24,20 @@ export const removeToken = () => {
     return localStorage.removeItem("token");
   }
 };
+
+export const setUser = userId => {
+  if (typeof window != "undefined") {
+    return localStorage.setItem("userId", userId);
+  }
+};
+
+export const getUser = () => {
+  if (typeof window != "undefined") {
+    return localStorage.getItem("userId");
+  }
+};
+export const removeUser = () => {
+  if (typeof window != "undefined") {
+    return localStorage.removeItem("userId");
+  }
+};

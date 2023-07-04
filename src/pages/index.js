@@ -55,7 +55,6 @@ function Home() {
             />
           ))}
         </div>
-        k
       </div>
       <div className={styles.homeProduct}>
         {product.map((item, i) => (
