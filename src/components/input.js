@@ -11,6 +11,7 @@ const Input = props => {
         className={styles.textInput}
         onKeyDown={props.onKeyDown}
         onChange={props.onChange}
+        value={props.value}
       />
     </div>
   );

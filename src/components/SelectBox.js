@@ -10,6 +10,9 @@ const Select = props => {
         onKeyDown={props.onKeyDown}
         onChange={props.onChange}
       >
+        <option value="" disabled selected>
+          Select your option
+        </option>
         {props.options.map((item, i) => (
           <option key={i} value={item[props.valueKey]}>
             {item.name}

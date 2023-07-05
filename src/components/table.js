@@ -4,6 +4,7 @@ export default function DataTable(props) {
   return (
     <div style={{ height: 700, width: "100%" }}>
       <DataGrid
+        onCellClick={props.onCellClick}
         rows={props.rows}
         getRowId={row => {
           return row._id;
@@ -15,7 +16,6 @@ export default function DataTable(props) {
           },
         }}
         pageSizeOptions={[5, 10]}
-        checkboxSelection
       />
     </div>
   );

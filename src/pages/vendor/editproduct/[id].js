@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 
 export default function AddProduct() {
   const router = useRouter();
+  const { id } = router.query;
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -31,10 +32,22 @@ export default function AddProduct() {
     const categoryData = await instance.get("/category");
     setCategory(categoryData.data);
   };
+  const fetchProductApi = async () => {
+    if (id) {
+      const productData = await instance.get(`/product/${id}`);
+      console.log(productData.data.data);
+      setForm({
+        ...form,
+        title: productData.data.data.title,
+      });
+    }
+    // setCategory(categoryData.data);
+  };
 
   useEffect(() => {
     fetchCategoryApi();
-  }, []);
+    fetchProductApi();
+  }, [id]);
 
   const onInputChange = (e, field) => {
     if (["price", "priceAfterDiscount", "quantity"].includes(field)) {
@@ -60,10 +73,14 @@ export default function AddProduct() {
     <>
       <VendorNavbar />
       <div className={styles.addproduct}>
-        <h1>Add Product</h1>
+        <h1>Edit Product</h1>
         <div className={styles.form}>
           <div className={styles.leftDiv}>
-            <Input label="Title" onChange={e => onInputChange(e, "title")} />
+            <Input
+              value={form.title}
+              label="Title"
+              onChange={e => onInputChange(e, "title")}
+            />
             <Input
               label="Description"
               onChange={e => onInputChange(e, "description")}

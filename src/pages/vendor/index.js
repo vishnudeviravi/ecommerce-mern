@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import { buildQuery } from "@/utils";
 import instance from "@/utils/axios";
 import { getUser } from "@/utils/index";
+import { useRouter } from "next/router";
 
 const columns = [
   { field: "_id", headerName: "ID", width: 70 },
@@ -41,6 +42,7 @@ const columns = [
 ];
 
 const VendorHome = () => {
+  const router = useRouter();
   const [products, setProducts] = useState([]);
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -87,7 +89,10 @@ const VendorHome = () => {
     setProducts(jsonProducts);
   };
 
-  console.log(products);
+  const onCellClick = e => {
+    console.log(e.id);
+    router.push(`/vendor/editproduct/${e.id}`);
+  };
 
   return (
     <div>
@@ -135,7 +140,11 @@ const VendorHome = () => {
             </FormControl>
           </div>
           <div className={styles.itemContainer}>
-            <DataTable columns={columns} rows={products} />
+            <DataTable
+              columns={columns}
+              rows={products}
+              onCellClick={onCellClick}
+            />
           </div>
         </div>
       </div>
